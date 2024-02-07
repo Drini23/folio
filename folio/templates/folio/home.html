@@ -1,0 +1,174 @@
+{% load static %} <!-- Add this line if you're using Django's static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - Home</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Your custom CSS styles */
+
+        /* Styling for the navbar */
+        .navbar {
+            background-color: #f8f9fa; /* Change background color */
+        }
+
+        /* Styling for section headers */
+        section {
+            padding: 50px 0;
+        }
+
+        section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* Styling for cards */
+        .card {
+            border: 1px solid #dee2e6; /* Add border */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box-shadow */
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            color: #6c757d; /* Change text color */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar section -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Drini Caci</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resume">Resume</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#certification">Certifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content sections -->
+    <div class="container">
+        <!-- About Me section -->
+        <section id="about">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>About Me</h1>
+                    <p>I'm Drini Caci, a passionate Python developer. I graduated from Codecademy with certifications. With 2 years of experience in web development, I've worked on projects involving Python, Django, Django Rest Framework. My mission is to create efficient and user-friendly web applications. Outside coding, I enjoy hiking, reading, and exploring new technologies. I'm excited to further enhance my skills in machine learning and AI. Connect with me on LinkedIn: <a href="https://www.linkedin.com/in/drini-caci-1b34082a3/">LinkedIn Profile</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume section -->
+        <section id="resume">
+            <h1>Resume</h1>
+            <div class="row">
+                {% for item in resume %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card">
+                            {% if item.image %}
+                                <img class="card-img-top" src="{{ item.image.url }}" alt="{{ item.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <a href="{% url 'resume' %}" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Projects section -->
+        <section id="projects">
+            <h1>Some of my Projects</h1>
+            <div class="row">
+                {% for project in projects %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card">
+                            {% if project.image %}
+                                <img class="card-img-top" src="{{ project.image.url }}" alt="{{ project.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ project.title }}</h5>
+                                <p class="card-text">{{ project.description }}</p>
+                                <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Certifications section -->
+        <section id="certification">
+            <h1>Certifications</h1>
+            <div class="row">
+                {% for item in certificate %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card">
+                            {% if item.image %}
+                                <img class="card-img-top" src="{{ item.image.url }}" alt="{{ item.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <p class="card-text">{{ item.compani }}</p>
+                                <a href="{% url 'certification_detail' item.pk %}" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Contact section -->
+        <section id="contact">
+            <h1>Contact Me</h1>
+            <p>Provide contact information or a form to reach you...</p>
+            <h3><a href="mailto:Drinisr@gmail.com?subject=Subject%20Here&body=Message%20Body%20Here">Click to email me</a></h3>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Bootstrap JS and jQuery (Add at the end of the body for faster page loading) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https
