@@ -163,6 +163,10 @@ SIMPLE_JWT = {
    'ACCESS_TOKEN_LIFETIME': timedelta(days=1)
 }
 
+# settings.py
+CSRF_TRUSTED_ORIGINS = ['https://drini-web.up.railway.app']
+
+
 
 
 
