@@ -24,6 +24,8 @@ urlpatterns = [
     path('', include("folio.urls")),
     path("projects/", include("projects.urls")),
     path('api/', include('api.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')), 
 ] 
 
 if settings.DEBUG:
