@@ -19,6 +19,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# import serve and repath
+from django.views.static import serve
+from django.urls import path, include,re_path
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("folio.urls")),
@@ -26,6 +30,7 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')), 
+    re_path(r'^media/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ] 
 
 
